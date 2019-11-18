@@ -24,6 +24,8 @@ class CreateWalletsTable extends Migration
 
             $table->integer('number')->unsigned()->nullable(false);
 
+            $table->double('amount', 16, 4)->unsigned()->nullable(false)->default(0);
+
             //https://appdividend.com/2017/10/12/laravel-one-to-one-eloquent-relationships/
             $table->timestamps();
         });
