@@ -33,6 +33,13 @@
               <label for="password">Password:</label>
               <input type="text" class="form-control" name="password" value="" />
           </div>
+          <div class="form-group">
+              <label for="role">Role:</label>
+              <select class="form-control" name="role">
+                  <option value="1">Admin</option>
+                  <option value="2">User</option>
+              </select>
+          </div>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
   </div>

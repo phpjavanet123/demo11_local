@@ -13,7 +13,7 @@
     </div><br />
   @endif
   <div class="card-header">Users</div>
-      <a href="{{ route('users.create')}}" class="btn btn-primary">Add</a>
+      <a href="{{ route('users.create')}}" class="btn btn-primary add-item">Add</a>
   <table class="table table-striped">
     <thead>
         <tr>
@@ -30,7 +30,7 @@
             <td>{{$user->id}}</td>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
-			<td>{{$user->role_id}}</td>
+			      <td>{{$user->role_id == 1 ? 'Admin' : 'User'}}</td>
             <td><a href="{{ route('users.edit',$user->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
                 <form action="{{ route('users.destroy', $user->id)}}" method="post">

@@ -13,7 +13,7 @@
     </div><br />
   @endif
   <div class="card-header">Clients</div>
-      <a href="{{ route('clients.create')}}" class="btn btn-primary">Add</a>
+      <a href="{{ route('clients.create')}}" class="btn btn-primary add-item">Add</a>
   <table class="table table-striped">
     <thead>
         <tr>

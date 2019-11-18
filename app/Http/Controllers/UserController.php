@@ -48,7 +48,8 @@ class UserController extends Controller
         'email'=> $request->get('email'),
         //TODO:: can be replaced to MD5 and moved to separate class HashUtil.php and can be used for Clients as well
         'password' => Hash::make($request->get('password')),
-        'role_id' => 2,
+        //'role_id' => 2,
+        'role_id' => $request->get('role'),
         //'email'=> $request->get('name') . rand(1,99999) . '@mail.com',
       ]);
       $user->save();
@@ -97,6 +98,7 @@ class UserController extends Controller
       $user = User::find($id);
       $user->name = $request->get('name');
       $user->email = $request->get('email');
+      $user->role_id = $request->get('role');
       if (!empty($request->get('password'))) {
           $user->password = Hash::make($request->get('password'));
       }
