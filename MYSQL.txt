@@ -1,0 +1,9 @@
+https://www.virendrachandak.com/techtalk/mysql-int11-what-does-it-means/
+https://laravel.com/docs/5.8/migrations
+
+
+https://stackoverflow.com/questions/5256469/what-is-the-benefit-of-zerofill-in-mysql
+https://stackoverflow.com/questions/12592376/mysql-why-specify-display-width-without-using-zerofill
+
+
+https://gist.github.com/voskobovich/537b2000108e4781f70b
