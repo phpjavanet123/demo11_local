@@ -127,7 +127,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (5,'2014_10_12_000000_create_users_table',1),(6,'2014_10_12_100000_create_password_resets_table',1),(7,'2019_07_16_102404_create_roles_table',1),(8,'2019_07_16_140158_create_clients_table',1),(NULL,'2019_11_18_124552_create_currencies_table',2),(NULL,'2019_11_18_131116_create_exchange_rates_table',3),(NULL,'2019_11_18_135752_create_wallets_table',3);
+INSERT INTO `migrations` VALUES (5,'2014_10_12_000000_create_users_table',1),(6,'2014_10_12_100000_create_password_resets_table',1),(7,'2019_07_16_102404_create_roles_table',1),(8,'2019_07_16_140158_create_clients_table',1),(NULL,'2019_11_18_124552_create_currencies_table',2),(NULL,'2019_11_18_131116_create_exchange_rates_table',3),(NULL,'2019_11_18_135752_create_wallets_table',3),(NULL,'2019_11_18_163122_create_transactions_table',4);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,6 +203,35 @@ INSERT INTO `sqlite_sequence` VALUES ('migrations',8),('roles',2),('users',2),('
 UNLOCK TABLES;
 
 --
+-- Table structure for table `transactions`
+--
+
+DROP TABLE IF EXISTS `transactions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `transactions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `wallet_id` bigint(20) unsigned NOT NULL,
+  `type` int(10) unsigned NOT NULL,
+  `amount` double(16,4) unsigned NOT NULL DEFAULT '0.0000',
+  `currency_id` bigint(20) unsigned NOT NULL,
+  `default_currency_amount` double(16,4) unsigned NOT NULL DEFAULT '0.0000',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transactions`
+--
+
+LOCK TABLES `transactions` WRITE;
+/*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -274,4 +303,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-18 16:40:48
+-- Dump completed on 2019-11-18 18:58:49

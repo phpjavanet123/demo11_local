@@ -50,3 +50,7 @@ ADD PRIMARY KEY (`id`);
 
 
 php artisan migrate
+
+
+php artisan make:model Transaction -m
+php artisan migrate
