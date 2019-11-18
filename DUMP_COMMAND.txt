@@ -1,0 +1,1 @@
+E:\xampp\mysql\bin>mysqldump.exe -u root -p demo11_local > DUMP_11_18_2019.sql

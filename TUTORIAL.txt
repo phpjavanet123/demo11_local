@@ -20,3 +20,33 @@ http://demo11.local/users
 
 USERS:
 http://demo11.local/clients
+
+
+$ php artisan make:model Currency -m
+
+
+https://gist.github.com/voskobovich/537b2000108e4781f70b
+
+#recreates everything
+#php artisan migrate:refresh
+ 
+php artisan migrate
+php artisan migrate:rollback
+
+
+php artisan make:model ExchangeRate -m
+php artisan migrate
+
+ONE to ONE relation:
+https://appdividend.com/2017/10/12/laravel-one-to-one-eloquent-relationships/
+
+
+php artisan make:model Wallet -m
+
+ALTER TABLE `demo11_local`.`users` 
+CHANGE COLUMN `id` `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT ,
+ADD PRIMARY KEY (`id`);
+;
+
+
+php artisan migrate
