@@ -75,3 +75,6 @@ below all of them store in transaction of different type
 
 https://stackoverflow.com/questions/35492780/api-handling-nested-resources-laravel
 
+
+супер:
+https://laraveldaily.com/nested-resource-controllers-and-routes-laravel-crud-example/
