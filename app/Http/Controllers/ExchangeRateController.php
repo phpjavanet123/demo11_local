@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class ExchangeRateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        throw new \Exception("wqewqe");
+        //echo 123;
     }
 
     /**

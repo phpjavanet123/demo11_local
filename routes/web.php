@@ -23,3 +23,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('clients', 'ClientController');
     Route::resource('users', 'UserController')->middleware('administrator');
 });
+//https://stackoverflow.com/questions/40223421/api-routes-naming-convention
+Route::resource('exchangerates', 'ExchangeRateController');
+Route::resource('clients', 'ClientController');
+Route::resource('wallets', 'WalletController');
+Route::resource('transactions', 'TransactionController');

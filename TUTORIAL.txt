@@ -54,3 +54,16 @@ php artisan migrate
 
 php artisan make:model Transaction -m
 php artisan migrate
+
+php artisan make:controller ExchangeRateController --resource
+php artisan make:controller ClientController --resource
+
+#https://github.com/parths049/money-transfer
+php artisan make:controller WalletController --resource (Account I prefer naming but for this example lets leave as MODEL name in our Business DOMAIN)
+php artisan make:controller TransactionController --resource  (Only POST supported)
+
+
+https://stackoverflow.com/questions/29255803/correct-way-of-nesting-dynamic-resource-controllers-with-laravel-when-creating-a
+
+#Change to list of transaction REST API protocall
+https://github.com/mfvanek/money-transfer-rest-api

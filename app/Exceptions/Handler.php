@@ -46,6 +46,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //POSTMAN header: Accept: application/json
+        //We will not create own exception class and check here like: 
+        //if ($exception instanceof ModelNotFoundException) {response()->json(..., getHTTPCode());}
+        // or set by static codes. Let's all exeption for now will have status code: 404 - NOT FOUND, user, exchangecurrency
+        if ($request->wantsJson()) {
+            return response()->json([
+                'data' => $exception->getMessage()
+            ], 404);
+        }
         return parent::render($request, $exception);
     }
 }
