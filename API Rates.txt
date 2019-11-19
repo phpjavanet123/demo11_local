@@ -49,3 +49,26 @@ HTTP_CODE: 200 (WRONG API KEY)
         "message": "API Key is invalid"
     }
 }
+
+FAILED TRANSACTION:
+https://rbkgh.github.io/MoneyTransferRESTApi/
+
+//Я не вникал сильно в доменную модель бизнеса и различие в банковских системах межлу транзакциями и переводами, снятия с счета потому добавляю в транзакции тип:
+Transaction Type: Withdraw, Deposit, Transfer
+
+
+https://github.com/moureauf/moneytransfer
+
+
+Nested resources controllers structure:
+
+/account/deposit
+/account/withdraw
+/account/transfer
+
+show, list etc.
+/wallet/deposits/1
+/wallet/withdraws/1
+/wallet/transfers/1
+
+below all of them store in transaction of different type
