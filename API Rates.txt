@@ -72,3 +72,6 @@ show, list etc.
 /wallet/transfers/1
 
 below all of them store in transaction of different type
+
+https://stackoverflow.com/questions/35492780/api-handling-nested-resources-laravel
+
