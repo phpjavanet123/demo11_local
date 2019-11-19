@@ -1,0 +1,22 @@
+REST API /exchangerates
+{
+  //"time": "2019-10-09T21:15:00Z", //сложно
+  "timestamp": 1323115901,
+  "base": "USD",
+  "rates": {
+      "AED": 3.66999725,
+      "ALL": 102.09382091,
+      "ANG": 1.78992886,
+      // 115 more currency rates here ...
+  }
+}
+
+
+We use ISO 4217 Three Letter Currency Codes - e.g. USD for US Dollars, EUR for Euro etc.
+https://www.exchangerate-api.com/docs/documentation
+
+
+To create a new exchange rate you will need to call the /api/v1/exchange-rates/ endpoint with the POST method.
+https://docs.sylius.com/en/1.6/api/exchange_rates.html
+
+https://www.iban.com/currency-converter-api
