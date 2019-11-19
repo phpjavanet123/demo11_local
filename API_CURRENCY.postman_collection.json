@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "f05d8a04-d6f6-4767-b296-828502a92e2d",
+		"name": "API_CURRENCY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://demo11.local/api/users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test1@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "currency_code",
+							"value": "USD",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Russia",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Moscow",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://demo11.local/api/users",
+					"protocol": "http",
+					"host": [
+						"demo11",
+						"local"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

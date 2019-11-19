@@ -244,6 +244,8 @@ CREATE TABLE `users` (
   `email` varchar(191) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
   `role_id` int(10) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -258,7 +260,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin Name','admin@example.com','0000-00-00 00:00:00','$2y$10$r3JwmbwCmZJjUhd5UOLXjeiwUu5SmEf0JvGhI81y7uNTcU7kEu/Ym',1,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'User Name','user@example.com','0000-00-00 00:00:00','$2y$10$A1TVlkDBbKZKqGgbZCGtA.6CGo4GDAJq23hqwWDCY7/xwgPTQ.aZm',2,'','0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `users` VALUES (1,'Admin Name','admin@example.com','0000-00-00 00:00:00','$2y$10$r3JwmbwCmZJjUhd5UOLXjeiwUu5SmEf0JvGhI81y7uNTcU7kEu/Ym',NULL,NULL,1,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'User Name','user@example.com','0000-00-00 00:00:00','$2y$10$A1TVlkDBbKZKqGgbZCGtA.6CGo4GDAJq23hqwWDCY7/xwgPTQ.aZm',NULL,NULL,2,'','0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,4 +305,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-18 18:58:49
+-- Dump completed on 2019-11-19 20:05:30

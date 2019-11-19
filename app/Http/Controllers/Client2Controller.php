@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Client;
 use Illuminate\Support\Facades\Hash;
 
-class ClientController extends Controller
+class Client2Controller extends Controller
 {
     /**
      * Display a listing of the resource.

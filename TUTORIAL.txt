@@ -67,3 +67,21 @@ https://stackoverflow.com/questions/29255803/correct-way-of-nesting-dynamic-reso
 
 #Change to list of transaction REST API protocall
 https://github.com/mfvanek/money-transfer-rest-api
+
+
+
+php artisan make:request ClientRequest
+
+
+php artisan config:cache
+composer dump-autoload
+php artisan route:list
+
+
+php artisan make:controller Api/\UserController --api
+
+E:\xampp\mysql\bin>mysqldump -u root -p demo11_local > DUMP_11_18_2019.sql
+
+
+
+http://demo11.local/api/users

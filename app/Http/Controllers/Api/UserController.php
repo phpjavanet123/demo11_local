@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
 
-class ClientController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,29 +15,24 @@ class ClientController extends Controller
      */
     public function index()
     {
-        die('eee');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        die('API');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\ClientRequest  $request
+     * @param  App\Http\Requests\ClientRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ClientRequest $request)
     {
-        die('4444');
-        //var_dump($request->validate());
+        $result =  $request->validated();
+        var_dump($result);
+
+        //https://laravel.com/api/5.3/Illuminate/Foundation/Http/FormRequest.html#method_only
+        $result = $request->all(); //$request->validated();
+        var_dump($result);
+        die('333');
     }
 
     /**
@@ -46,17 +42,6 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        die('222');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }
