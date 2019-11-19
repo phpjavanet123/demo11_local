@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         //POSTMAN header: Accept: application/json
-        //We will not create own exception class and check here like: 
+        //We will not create own exception class and check here like:
         //if ($exception instanceof ModelNotFoundException) {response()->json(..., getHTTPCode());}
         // or set by static codes. Let's all exeption for now will have status code: 404 - NOT FOUND, user, exchangecurrency
 
@@ -65,6 +65,10 @@ class Handler extends ExceptionHandler
             //print_r($exception->getStatusCode());
             //die('s');
 
+            //WE FOUND STATUS
+            //$exception = $this->prepareException($exception);
+            //print_r($exception->status);
+            //die('s');
         }
         return parent::render($request, $exception);
     }
