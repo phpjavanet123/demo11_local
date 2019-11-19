@@ -20,3 +20,32 @@ To create a new exchange rate you will need to call the /api/v1/exchange-rates/ 
 https://docs.sylius.com/en/1.6/api/exchange_rates.html
 
 https://www.iban.com/currency-converter-api
+
+
+https://www.iban.com/exchange-rates-api
+
+curl "https://api.iban.com/clients/api/currency/rates/" \
+    -X POST \
+    -d format=json \
+    -d api_key=[YOUR_API_KEY] \
+    -d currency=USD
+	
+{"error":{"code":"401","message":"API Key is invalid"}}
+
+postman: withut API_KEY:
+HTTP_CODE: 400 Bad Request
+
+{
+    "error": {
+        "code": "400",
+        "message": "Bad Request ( Missing required parameters: api_key, currency ) "
+    }
+}
+=================
+HTTP_CODE: 200 (WRONG API KEY)
+{
+    "error": {
+        "code": "401",
+        "message": "API Key is invalid"
+    }
+}
