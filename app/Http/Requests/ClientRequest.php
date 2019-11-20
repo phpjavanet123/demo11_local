@@ -23,15 +23,45 @@ class ClientRequest extends FormRequest
      */
     public function rules()
     {
-        //throw new \Exception('ddddd');
+        /*
         return [
             'name'          => 'required',
-            'email'         => 'required|email',
+            'email'         => 'required|email|unique:users,email,{$this->user->id}',
             'password'      => 'required',
             'currency_code' => 'required|max:3',
             'country'       => 'required|max:100',
-            'city'          => 'required|min:100',
+            'city'          => 'required|max:100',
         ];
+        */
+
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'name'          => 'required',
+                    'email'=>'required|email|unique:users,email',
+                    //'email'=>'required|email|unique:users,email,'. $this->id,
+                    //'email'         => 'required|email|unique:users,email',
+                    'password'      => 'required',
+                    'currency_code' => 'required|max:3',
+                    'country'       => 'required|max:100',
+                    'city'          => 'required|max:100',
+                ];
+                break;
+            case 'PUT':
+                return [
+                    'email'=>'required|email|unique:users,email,{$this->user->id}',
+                    'currency_code' => 'max:3',
+                    'country'       => 'max:100',
+                    'city'          => 'max:100',
+                ];
+                break;
+            case 'GET':
+            case 'DELETE':
+            case 'PATCH':
+                return [];
+                break;
+            default:break;
+        }
     }
 
     public function messages()

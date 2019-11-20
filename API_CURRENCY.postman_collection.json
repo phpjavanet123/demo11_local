@@ -65,6 +65,211 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://demo11.local/api/users_GET_INDEX",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://demo11.local/api/users",
+					"protocol": "http",
+					"host": [
+						"demo11",
+						"local"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://demo11.local/api/users_GET_INDEX_1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test1@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "currency_code",
+							"value": "USD",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Russia",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Moscow",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://demo11.local/api/users/3",
+					"protocol": "http",
+					"host": [
+						"demo11",
+						"local"
+					],
+					"path": [
+						"api",
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://demo11.local/api/users_GET_INDEX_1_DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test1@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "currency_code",
+							"value": "USD",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Russia",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Moscow",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://demo11.local/api/users/3",
+					"protocol": "http",
+					"host": [
+						"demo11",
+						"local"
+					],
+					"path": [
+						"api",
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://demo11.local/api/users_PUT_UPDATE",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "city",
+							"value": "Moscow4",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "user1@example.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://demo11.local/api/users/4",
+					"protocol": "http",
+					"host": [
+						"demo11",
+						"local"
+					],
+					"path": [
+						"api",
+						"users",
+						"4"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

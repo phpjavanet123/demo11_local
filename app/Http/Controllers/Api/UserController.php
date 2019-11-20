@@ -2,70 +2,91 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        die('API');
+        //http://demo11.local/api/users
+        return response()->json(User::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\ClientRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param ClientRequest $request
+     * @return Response
      */
     public function store(ClientRequest $request)
     {
-        $result =  $request->validated();
-        var_dump($result);
+        //POST http://demo11.local/api/users
+        /*
+        $user =User::where('email', $request->get('email'))->first();
+        if ($user) {
+            throw new \Exception('User already exist!');
+        }
+        */
 
-        //https://laravel.com/api/5.3/Illuminate/Foundation/Http/FormRequest.html#method_only
-        $result = $request->all(); //$request->validated();
-        var_dump($result);
-        die('333');
+        $user = User::firstOrNew($request->only(['name', 'email', 'country', 'city']));
+        $user->password = Hash::make($request->get('password'));
+        $user->role_id = 2;
+        $user->save();
+
+        return response()->json($user);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
-        //
+        //http://demo11.local/api/users/16
+        $user = User::findOrFail($id);
+        return response()->json($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ClientRequest $request
+     * @param User $user
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, User $user)
     {
-        //
+        $user->fill($request->only(['name', 'email', 'country', 'city']));
+        print_r($user->toArray());
+        //$user->city = $request->get('city');
+        //$user->fill($request->only(['name', 'email', 'country', 'city']));
+        $user->save();
+        return response()->json($user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        //$user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['success' => true]);
     }
 }
