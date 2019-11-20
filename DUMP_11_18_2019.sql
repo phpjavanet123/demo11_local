@@ -219,7 +219,7 @@ CREATE TABLE `transactions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,6 +228,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+INSERT INTO `transactions` VALUES (1,1,0,20.0000,1,12.0000,NULL,NULL),(2,2,0,30.0000,2,122.0000,NULL,NULL);
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +252,7 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +261,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin Name','admin@example.com','0000-00-00 00:00:00','$2y$10$r3JwmbwCmZJjUhd5UOLXjeiwUu5SmEf0JvGhI81y7uNTcU7kEu/Ym',NULL,NULL,1,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'User Name','user@example.com','0000-00-00 00:00:00','$2y$10$A1TVlkDBbKZKqGgbZCGtA.6CGo4GDAJq23hqwWDCY7/xwgPTQ.aZm',NULL,NULL,2,'','0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `users` VALUES (1,'Admin Name','admin@example.com','0000-00-00 00:00:00','$2y$10$r3JwmbwCmZJjUhd5UOLXjeiwUu5SmEf0JvGhI81y7uNTcU7kEu/Ym',NULL,NULL,1,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'User Name','user@example.com','0000-00-00 00:00:00','$2y$10$A1TVlkDBbKZKqGgbZCGtA.6CGo4GDAJq23hqwWDCY7/xwgPTQ.aZm',NULL,NULL,2,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,'test1','user1@example.com',NULL,'$2y$10$Jv3bPMfKh9uTKU5sQsibxOdffSh2dqbuJCOpqvgarhq2icliWCZaG','Russia','Moscow4',2,NULL,'2019-11-20 15:22:34','2019-11-20 15:54:54'),(5,'test12','test16@example.com',NULL,'$2y$10$T.MVttMUlTPgzXIQ748aLOFhmRyvXmVs7NEz3YwfxnM0dtVt8onge','Russia','Moscow',2,NULL,'2019-11-20 15:55:35','2019-11-20 15:55:35');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +285,7 @@ CREATE TABLE `wallets` (
   KEY `wallets_currency_id_foreign` (`currency_id`),
   CONSTRAINT `wallets_currency_id_foreign` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`),
   CONSTRAINT `wallets_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +294,7 @@ CREATE TABLE `wallets` (
 
 LOCK TABLES `wallets` WRITE;
 /*!40000 ALTER TABLE `wallets` DISABLE KEYS */;
+INSERT INTO `wallets` VALUES (1,1,1,111,0.0000,NULL,NULL),(2,2,2,222,0.0000,NULL,NULL);
 /*!40000 ALTER TABLE `wallets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -305,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-19 20:05:30
+-- Dump completed on 2019-11-20 21:08:14

@@ -29,7 +29,7 @@ https://gist.github.com/voskobovich/537b2000108e4781f70b
 
 #recreates everything
 #php artisan migrate:refresh
- 
+
 php artisan migrate
 php artisan migrate:rollback
 
@@ -43,7 +43,7 @@ https://appdividend.com/2017/10/12/laravel-one-to-one-eloquent-relationships/
 
 php artisan make:model Wallet -m
 
-ALTER TABLE `demo11_local`.`users` 
+ALTER TABLE `demo11_local`.`users`
 CHANGE COLUMN `id` `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT ,
 ADD PRIMARY KEY (`id`);
 ;
@@ -77,11 +77,17 @@ php artisan config:cache
 composer dump-autoload
 php artisan route:list
 
-
+#https://laravel.com/docs/5.7/controllers#resource-controllers
 php artisan make:controller Api/\UserController --api
+php artisan make:controller Api/\WalletController --api --model=Wallet
+php artisan make:controller Api/\WalletTransferController --api --model=Wallet
 
 E:\xampp\mysql\bin>mysqldump -u root -p demo11_local > DUMP_11_18_2019.sql
 
 
 
 http://demo11.local/api/users
+
+
+#https://stackoverflow.com/questions/29255803/correct-way-of-nesting-dynamic-resource-controllers-with-laravel-when-creating-a
+#https://stackoverflow.com/questions/35492780/api-handling-nested-resources-laravel
