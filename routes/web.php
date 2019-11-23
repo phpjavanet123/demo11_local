@@ -84,3 +84,64 @@ $ php artisan route:list
 |        | GET|HEAD  | api/wallets/{wallet}/transfers/{transfer} | wallets.transfers.show    | App\Http\Controllers\Api\WalletTransferController@show                 | web                    |
 
 */
+
+//WE dont support rest operation for now: , ['except' => ['index', 'show']]
+//Route::apiResource('api/currencies', 'Api\CurrencyController', ['only' => ['index', 'show']]);
+//Route::apiResource('api/currencies', 'Api\CurrencyController', ['except' => ['index', 'show']]);
+
+/**
+ * We could use like this, but we will place it in Model because we will use always one style, and will not manipulate with it
+ * @see: https://laravel.com/docs/5.8/routing#route-model-binding
+ * @details: php Documentor uses the github variant of markdown
+ * ```php
+ * Route::bind('currency', function ($value) {
+ * return App\Currency::where('code', $value)->first() ?? abort(404);
+ * });
+ * Route::apiResource('api/currencies', 'Api\CurrencyController');
+ * ```
+ */
+Route::apiResource('api/currencies', 'Api\CurrencyController');
+
+//Here we cannot use: getRouteKeyName() on model because we use complicated query
+Route::bind('rate', function ($rate) {
+    //$el =  App\Currency::where('code', $rate)->firstOrFail()
+    //$el =  App\Currency::where('code', $rate)->first();
+
+    //http://demo11.local/api/currencies/USD/rates/EUR1 return 500
+    //return App\Currency::where('code', $rate)->first() ?? abort(500);
+
+    //http://demo11.local/api/currencies/USD/rates/EUR1 return 404
+    //return App\Currency::where('code', $rate)->firstOrFail() ?? abort(500);
+
+    //Laravel firstOrFail return by default 404  https://laravel-news.com/laravel-firstorfail-forthewin
+    //return App\Currency::where('code', $rate)->firstOrFail()->rate()->first() ?? abort(404);
+
+    //By default return 404
+    //http://demo11.local/api/currencies/USD/rates/EUR1
+    return App\Currency::where('code', $rate)->firstOrFail()->rate()->firstOrFail();
+});
+Route::apiResource('api/currencies.rates', 'Api\Currency\RateController');
+//check new route added and methods & arguments names
+//php artisan route:list
+
+
+/*
+//http://demo11.local/api/currencies/rates
+
+//Example 1
+//https://medium.com/@SlyFireFox/the-power-of-laravels-route-defaults-for-making-root-level-seo-pages-ae6da1d9fd51
+Route::get('/api/currencies/rates', [
+    'as'       => 'currencies.rates',
+    'uses'     => 'Api\Currency\RateController@index',
+])->defaults('currency', App\Currency::where('code', 'USD')->first());
+
+//Example 2
+//https://stackoverflow.com/questions/31871910/how-to-pass-default-values-to-controller-by-routing-in-laravel-5
+Route::get('/api/currencies/rates', function ($code = 'USD') {
+    $ctrl = new \App\Http\Controllers\Api\Currency\RateController();
+    $currency = App\Currency::where('code', $code)->first();
+    return $ctrl->index($currency);
+});
+
+Route::apiResource('api/currencies', 'Api\CurrencyController');
+*/

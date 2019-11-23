@@ -101,3 +101,5 @@ INSERT INTO `demo11_local`.`wallets` (`id`, `user_id`, `currency_id`, `number`, 
 INSERT INTO `demo11_local`.`wallets` (`id`, `user_id`, `currency_id`, `number`, `created_at`, `updated_at`) VALUES ('5', '11', '2', '5', '2019-11-23 08:29:58', '2019-11-23 08:29:58');
 
 
+php artisan make:controller Api/\CurrencyController --api --model=Currency
+php artisan make:controller Api/\Currency/\RateController --api --model=ExchangeRate

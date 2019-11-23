@@ -94,7 +94,7 @@ CREATE TABLE `exchange_rates` (
   PRIMARY KEY (`id`),
   KEY `exchange_rates_currency_id_foreign` (`currency_id`),
   CONSTRAINT `exchange_rates_currency_id_foreign` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `exchange_rates` (
 
 LOCK TABLES `exchange_rates` WRITE;
 /*!40000 ALTER TABLE `exchange_rates` DISABLE KEYS */;
-INSERT INTO `exchange_rates` VALUES (1,2,1.0000,1),(2,1,1.0000,0),(3,3,0.5000,0),(4,4,2.0000,0);
+INSERT INTO `exchange_rates` VALUES (1,2,1.0000,1),(2,1,1.0000,0),(3,3,0.5000,0),(4,4,2.0000,0),(5,11,0.9100,0);
 /*!40000 ALTER TABLE `exchange_rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-23 11:13:43
+-- Dump completed on 2019-11-23 12:40:14

@@ -6,6 +6,154 @@
 	},
 	"item": [
 		{
+			"name": "Currency",
+			"item": [
+				{
+					"name": "http://demo11.local/api/currencies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://demo11.local/api/currencies",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/currencies/USD",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://demo11.local/api/currencies/USD",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"currencies",
+								"USD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/currencies/USD/rates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://demo11.local/api/currencies/USD/rates",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"currencies",
+								"USD",
+								"rates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/currencies/USD/rates/EUR",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "timestamp",
+									"value": "1574504563",
+									"type": "text"
+								},
+								{
+									"key": "rate",
+									"value": "0.91",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo11.local/api/currencies/USD/rates/EUR",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"currencies",
+								"USD",
+								"rates",
+								"EUR"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "http://demo11.local/api/users",
 			"request": {
 				"method": "POST",
@@ -266,6 +414,39 @@
 						"api",
 						"users",
 						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://demo11.local/api/users_GET_INDEX_Wall_transaction",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://demo11.local/api/wallets/1/transfers/2",
+					"protocol": "http",
+					"host": [
+						"demo11",
+						"local"
+					],
+					"path": [
+						"api",
+						"wallets",
+						"1",
+						"transfers",
+						"2"
 					]
 				}
 			},
