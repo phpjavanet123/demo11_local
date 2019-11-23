@@ -91,3 +91,13 @@ http://demo11.local/api/users
 
 #https://stackoverflow.com/questions/29255803/correct-way-of-nesting-dynamic-resource-controllers-with-laravel-when-creating-a
 #https://stackoverflow.com/questions/35492780/api-handling-nested-resources-laravel
+
+ALTER TABLE `demo11_local`.`users`  ADD CONSTRAINT email_indx UNIQUE KEY(email);
+
+INSERT INTO `demo11_local`.`users` (`name`, `email`, `password`, `country`, `city`, `role_id`, `created_at`, `updated_at`) VALUES ('Withdraw', 'withdraw@example.com', '$2y$10$IGn3VupGIoAdwzdTmfiJaO2ZG.niA8jK3MyxJgzHc8aQ5PTtH2QQy', 'United States of America', 'New York', '2', '2019-11-23 08:29:58', '2019-11-23 08:29:58');
+INSERT INTO `demo11_local`.`users` (`name`, `email`, `password`, `country`, `city`, `role_id`, `created_at`, `updated_at`) VALUES ('Deposit', 'deposit@example.com', '$2y$10$IGn3VupGIoAdwzdTmfiJaO2ZG.niA8jK3MyxJgzHc8aQ5PTtH2QQy', 'United States of America', 'New York', '2', '2019-11-23 08:29:58', '2019-11-23 08:29:58');
+
+INSERT INTO `demo11_local`.`wallets` (`id`, `user_id`, `currency_id`, `number`, `created_at`, `updated_at`) VALUES ('4', '10', '2', '4', '2019-11-23 08:29:58', '2019-11-23 08:29:58');
+INSERT INTO `demo11_local`.`wallets` (`id`, `user_id`, `currency_id`, `number`, `created_at`, `updated_at`) VALUES ('5', '11', '2', '5', '2019-11-23 08:29:58', '2019-11-23 08:29:58');
+
+

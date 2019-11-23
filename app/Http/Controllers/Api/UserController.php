@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Currency;
 use App\User;
+use App\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
@@ -16,10 +18,15 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //http://demo11.local/api/users
-        return response()->json(User::all());
+        //return response()->json(User::all());
+       // $request->set('currency_code', 'USD');
+        //$currency = Currency::where('code', $request->get('currency_code'))->firstOrFail();
+        //$currency = Currency::where('code', 'USD')->firstOrFail();
+        //print_r($currency);
+        //$user = User::create(['email' => 'user1@example.com' ]);
     }
 
     /**
@@ -30,7 +37,7 @@ class UserController extends Controller
      */
     public function store(ClientRequest $request)
     {
-        //POST http://demo11.local/api/users
+        //POST http://demo11.local/api/utsers
         /*
         $user =User::where('email', $request->get('email'))->first();
         if ($user) {
@@ -38,10 +45,16 @@ class UserController extends Controller
         }
         */
 
-        $user = User::firstOrNew($request->only(['name', 'email', 'country', 'city']));
-        $user->password = Hash::make($request->get('password'));
-        $user->role_id = 2;
-        $user->save();
+        $user = User::create($request->getOnlyFillableModified());
+        $currency = Currency::whereCode($request->get('currency_code'))->firstOrFail();
+        //We use create here because we want to be sure that we are CREATING ($wallet->save() - used for update/insert)
+        $wallet = Wallet::create([
+            'user_id'     => $user->id,
+            'currency_id' => $currency->id,
+            'number'      => 1,  //temporary used as flag
+        ]);
+        $wallet->number = $wallet->id;
+        $wallet->save(); //here we update with unique account number
 
         return response()->json($user);
     }

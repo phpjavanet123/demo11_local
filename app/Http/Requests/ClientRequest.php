@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class ClientRequest extends FormRequest
 {
@@ -88,5 +89,37 @@ class ClientRequest extends FormRequest
             'email' => 'trim|lowercase',
             'name'  => 'trim|capitalize|escape'
         ];
+    }
+
+    public function getOnlyFillable()
+    {
+        return $this->only([
+            'name',
+            'email',
+            'country',
+            'city',
+            'password',
+            'role_id',
+        ]);
+    }
+
+    /**
+     * Transform data: sets: role_id, hashed password
+     * @return array
+     */
+    public function getOnlyFillableModified()
+    {
+        //default value for role
+        $data = array_merge(
+            ['role_id' => 2], //always provide it is default value
+            $this->getOnlyFillable()
+        );
+
+        //if we send REST API for updating user maybe we not provide OPTIONAL param: password
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        return $data;
     }
 }

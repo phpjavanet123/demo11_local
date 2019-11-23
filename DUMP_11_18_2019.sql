@@ -251,8 +251,9 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_indx` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +262,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin Name','admin@example.com','0000-00-00 00:00:00','$2y$10$r3JwmbwCmZJjUhd5UOLXjeiwUu5SmEf0JvGhI81y7uNTcU7kEu/Ym',NULL,NULL,1,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'User Name','user@example.com','0000-00-00 00:00:00','$2y$10$A1TVlkDBbKZKqGgbZCGtA.6CGo4GDAJq23hqwWDCY7/xwgPTQ.aZm',NULL,NULL,2,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,'test1','user1@example.com',NULL,'$2y$10$Jv3bPMfKh9uTKU5sQsibxOdffSh2dqbuJCOpqvgarhq2icliWCZaG','Russia','Moscow4',2,NULL,'2019-11-20 15:22:34','2019-11-20 15:54:54'),(5,'test12','test16@example.com',NULL,'$2y$10$T.MVttMUlTPgzXIQ748aLOFhmRyvXmVs7NEz3YwfxnM0dtVt8onge','Russia','Moscow',2,NULL,'2019-11-20 15:55:35','2019-11-20 15:55:35');
+INSERT INTO `users` VALUES (1,'Admin Name','admin@example.com','0000-00-00 00:00:00','$2y$10$r3JwmbwCmZJjUhd5UOLXjeiwUu5SmEf0JvGhI81y7uNTcU7kEu/Ym',NULL,NULL,1,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'User Name','user@example.com','0000-00-00 00:00:00','$2y$10$A1TVlkDBbKZKqGgbZCGtA.6CGo4GDAJq23hqwWDCY7/xwgPTQ.aZm',NULL,NULL,2,'','0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,'test1','user1@example.com',NULL,'$2y$10$Jv3bPMfKh9uTKU5sQsibxOdffSh2dqbuJCOpqvgarhq2icliWCZaG','Russia','Moscow4',2,NULL,'2019-11-20 15:22:34','2019-11-20 15:54:54'),(5,'test12','test16@example.com',NULL,'$2y$10$T.MVttMUlTPgzXIQ748aLOFhmRyvXmVs7NEz3YwfxnM0dtVt8onge','Russia','Moscow',2,NULL,'2019-11-20 15:55:35','2019-11-20 15:55:35'),(8,'test122222','test2@example.com',NULL,'$2y$10$IGn3VupGIoAdwzdTmfiJaO2ZG.niA8jK3MyxJgzHc8aQ5PTtH2QQy','Russia','Moscow55',2,NULL,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(10,'Withdraw','withdraw@example.com',NULL,'$2y$10$IGn3VupGIoAdwzdTmfiJaO2ZG.niA8jK3MyxJgzHc8aQ5PTtH2QQy','United States of America','New York',2,NULL,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(11,'Deposit','deposit@example.com',NULL,'$2y$10$IGn3VupGIoAdwzdTmfiJaO2ZG.niA8jK3MyxJgzHc8aQ5PTtH2QQy','United States of America','New York',2,NULL,'2019-11-23 06:29:58','2019-11-23 06:29:58');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +286,7 @@ CREATE TABLE `wallets` (
   KEY `wallets_currency_id_foreign` (`currency_id`),
   CONSTRAINT `wallets_currency_id_foreign` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`),
   CONSTRAINT `wallets_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +295,7 @@ CREATE TABLE `wallets` (
 
 LOCK TABLES `wallets` WRITE;
 /*!40000 ALTER TABLE `wallets` DISABLE KEYS */;
-INSERT INTO `wallets` VALUES (1,1,1,111,0.0000,NULL,NULL),(2,2,2,222,0.0000,NULL,NULL);
+INSERT INTO `wallets` VALUES (1,1,1,111,0.0000,NULL,NULL),(2,2,2,222,0.0000,NULL,NULL),(3,8,2,3,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(4,10,2,4,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(5,11,2,5,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58');
 /*!40000 ALTER TABLE `wallets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -307,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-20 21:08:14
+-- Dump completed on 2019-11-23 11:13:43
