@@ -27,4 +27,22 @@ class Wallet extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function transactionsTo()
+    {
+        return $this->hasMany(Transaction::class, 'to_wallet_id');
+    }
+
+    /**
+     * Merges from Wallet transactions and to Wallet transactions.
+     * @note: we use this method for reports, as quick solution without extra tables or duplicates row in transaction
+     * to associate wallets with transactions
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function transactionsFromTo()
+    {
+        return $this->transactions()->get()->merge($this->transactionsTo()->get());
+    }
+
 }

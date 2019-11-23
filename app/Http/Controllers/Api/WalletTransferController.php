@@ -18,6 +18,13 @@ class WalletTransferController extends Controller
      */
     public function index(Wallet $wallet)
     {
+        //$transactions = $wallet->transactions()->get();
+        //$transactions = $wallet->transactionsTo()->get();
+        $transactions = $wallet->transactionsFromTo();
+        print_r($transactions);
+        //print_r($wallet->toArray());
+        die('2222');
+
         $transactions = Transaction::whereWalletId($wallet->id)->get();
         return response()->json($transactions);
 
