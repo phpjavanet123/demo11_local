@@ -15,7 +15,8 @@ class WalletController extends Controller
      */
     public function index()
     {
-        //
+        //http://demo11.local/api/wallets
+        return response()->json(Wallet::all());
     }
 
     /**
@@ -26,7 +27,7 @@ class WalletController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        throw new \Exception('Not implemented!');
     }
 
     /**
@@ -37,7 +38,7 @@ class WalletController extends Controller
      */
     public function show(Wallet $wallet)
     {
-        //
+        throw new \Exception('Not implemented!');
     }
 
     /**
@@ -49,7 +50,7 @@ class WalletController extends Controller
      */
     public function update(Request $request, Wallet $wallet)
     {
-        //
+        throw new \Exception('Not implemented!');
     }
 
     /**
@@ -60,6 +61,6 @@ class WalletController extends Controller
      */
     public function destroy(Wallet $wallet)
     {
-        //
+        throw new \Exception('Not implemented!');
     }
 }

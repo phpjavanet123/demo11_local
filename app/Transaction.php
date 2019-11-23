@@ -19,14 +19,24 @@ class Transaction extends Model
     //Aggregate fields
     protected $fillable = [
         'wallet_id', //related to Wallet
+        'to_wallet_id',
         'type', //Debit/Credit
+        'status',
         //'invoice_id', //we dont process for now we are not interder
         //'payment_id', //we dont include as well: VISA, Paxum, Poloniex etc.
         'amount',
-        
+
         //normany we should keep this data in separate table but because we dont hardcode default USD currency, we need here it to complete report
         //'default_currency_exchange_rate', // we dont keep here because we maybe used +commission, + sheving so it will not be 1:1
         'default_currency_id',
         'default_currency_amount',
     ];
+
+    /**
+     * Get the wallet that owns the transaction.
+     */
+    public function wallet()
+    {
+        return $this->belongsTo(Wallet::class);
+    }
 }

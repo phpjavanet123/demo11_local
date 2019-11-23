@@ -19,4 +19,12 @@ class Wallet extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the transaction record associated with the wallet.
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

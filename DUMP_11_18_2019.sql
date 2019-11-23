@@ -90,11 +90,12 @@ CREATE TABLE `exchange_rates` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `currency_id` bigint(20) unsigned NOT NULL,
   `rate` double(10,4) NOT NULL,
+  `date` timestamp NULL DEFAULT NULL,
   `default` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `exchange_rates_currency_id_foreign` (`currency_id`),
+  UNIQUE KEY `currency_id` (`currency_id`,`date`),
   CONSTRAINT `exchange_rates_currency_id_foreign` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +104,7 @@ CREATE TABLE `exchange_rates` (
 
 LOCK TABLES `exchange_rates` WRITE;
 /*!40000 ALTER TABLE `exchange_rates` DISABLE KEYS */;
-INSERT INTO `exchange_rates` VALUES (1,2,1.0000,1),(2,1,1.0000,0),(3,3,0.5000,0),(4,4,2.0000,0),(5,11,0.9100,0);
+INSERT INTO `exchange_rates` VALUES (1,2,1.0000,'2019-11-22 22:00:00',1),(2,1,1.0000,'2019-11-22 22:00:00',0),(3,3,0.5000,'2019-11-22 22:00:00',0),(4,4,2.0000,'2019-11-22 22:00:00',0),(6,12,0.9200,'2019-11-23 22:00:00',0),(7,11,0.9600,'2019-11-23 22:00:00',0),(9,11,0.9300,'2019-11-22 22:00:00',0);
 /*!40000 ALTER TABLE `exchange_rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,14 +213,16 @@ DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `wallet_id` bigint(20) unsigned NOT NULL,
+  `to_wallet_id` bigint(20) unsigned NOT NULL,
   `type` int(10) unsigned NOT NULL,
-  `amount` double(16,4) unsigned NOT NULL DEFAULT '0.0000',
+  `status` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `currency_id` bigint(20) unsigned NOT NULL,
+  `amount` double(16,4) unsigned NOT NULL DEFAULT '0.0000',
   `default_currency_amount` double(16,4) unsigned NOT NULL DEFAULT '0.0000',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +231,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES (1,1,0,20.0000,1,12.0000,NULL,NULL),(2,2,0,30.0000,2,122.0000,NULL,NULL);
+INSERT INTO `transactions` VALUES (1,1,0,0,NULL,1,20.0000,12.0000,NULL,NULL),(2,2,0,0,NULL,2,30.0000,122.0000,NULL,NULL),(3,3,0,0,NULL,2,12.0000,1212.0000,NULL,'2019-11-23 06:29:58'),(4,3,0,1,NULL,2,434.0000,23.0000,'2019-11-23 06:29:58',NULL);
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +298,7 @@ CREATE TABLE `wallets` (
 
 LOCK TABLES `wallets` WRITE;
 /*!40000 ALTER TABLE `wallets` DISABLE KEYS */;
-INSERT INTO `wallets` VALUES (1,1,1,111,0.0000,NULL,NULL),(2,2,2,222,0.0000,NULL,NULL),(3,8,2,3,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(4,10,2,4,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(5,11,2,5,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58');
+INSERT INTO `wallets` VALUES (1,1,1,111,0.0000,NULL,NULL),(2,2,2,2,0.0000,NULL,NULL),(3,8,2,3,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(4,10,2,4,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58'),(5,11,2,5,0.0000,'2019-11-23 06:29:58','2019-11-23 06:29:58');
 /*!40000 ALTER TABLE `wallets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -308,4 +311,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-23 12:40:14
+-- Dump completed on 2019-11-23 19:38:19

@@ -21,7 +21,8 @@ class CreateExchangeRatesTable extends Migration
             //Zimbabve dollar is rate 367.2343 maybe some other currency even lower for Now I will just use 6.4 (as Double of Zimbabwean Dollar) as maximum
             //https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=ZWD
             //Normaly somebody responsible for this should provide to programmer MAX value of rate.
-            $table->double('rate', 10, 4)->nullable(false); 
+            $table->double('rate', 10, 4)->nullable(false);
+            $table->timestamp('date')->nullable();
             $table->boolean('default')->default(false);
         });
     }

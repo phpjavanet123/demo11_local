@@ -20,8 +20,8 @@ class Currency extends Model
     /**
      * Get the rate record associated with the currency.
      */
-    public function rate()
+    public function rates()
     {
-        return $this->hasOne(ExchangeRate::class);
+        return $this->hasMany(ExchangeRate::class);
     }
 }

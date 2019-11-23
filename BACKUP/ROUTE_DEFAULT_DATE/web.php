@@ -13,7 +13,6 @@
 
 use App\Transaction;
 use App\Wallet;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 //for IDE PhpStorm
 use Illuminate\Routing\Route as RouteBind;
@@ -41,7 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::apiResource('exchangerates', 'ExchangeRateController');
 Route::apiResource('clients', 'ClientController');
-//Route::apiResource('wallets', 'WalletController');
+Route::apiResource('wallets', 'WalletController');
 Route::apiResource('transactions', 'TransactionController');
 
 
@@ -67,7 +66,6 @@ Route::model('transfer', Transaction::class);
 
 //http://demo11.local/api/wallets/1/transfers
 //Route::apiResource('api/wallets.transfers', 'Api\WalletTransferController');
-Route::apiResource('api/wallets', 'Api\WalletController');
 Route::apiResource('api/wallets.transfers', 'Api\WalletTransferController');
 //Route::apiResource('api/wallets/{wallet}/transfers/{transaction}', 'Api\WalletTransferController');
 /*
@@ -93,11 +91,6 @@ $ php artisan route:list
 //WE dont support rest operation for now: , ['except' => ['index', 'show']]
 //Route::apiResource('api/currencies', 'Api\CurrencyController', ['only' => ['index', 'show']]);
 //Route::apiResource('api/currencies', 'Api\CurrencyController', ['except' => ['index', 'show']]);
-/*
-Route::apiResource('api/currencies', 'Api\CurrencyController')->only([
-    'index', 'show'
-]);
-*/
 
 /**
  * We could use like this, but we will place it in Model because we will use always one style, and will not manipulate with it
@@ -114,16 +107,10 @@ Route::apiResource('api/currencies', 'Api\CurrencyController')->only([
 
 //Here we cannot use: getRouteKeyName() on model because we use complicated query
 //https://laravel.io/forum/10-13-2015-how-to-get-http-request-in-route-model-binding-closure
-
-//http://demo11.local/api/currencies/EUR/rates/2019-11-24
-Route::bind('rate', function ($dateTime,  RouteBind $route)  {
-    //we use this way because it is COMPOSITE KEY, NOT OPTIONAL ARGUMENT. We need composite key to extract MODEL: RATE
-    $currencyCode = $route->parameter('currency');
-    //$params = explode(',', $rate, 2);
-    //$rateCurrency = $params[0];
-    //$dateTime = !empty($params[1]) ? $params[1] : time();
-    //$dateTime = $rate;
-    $date = is_numeric($dateTime) ? Carbon::createFromTimestamp($dateTime) : new Carbon($dateTime);
+Route::bind('rate', function ($rate,  RouteBind $route)  {
+    $s = 1;
+    $d2 = $route->parameter('date');
+    $d12 =2;
     //$request = $router->getCurrentRequest();
     //print_r($rate);
     //print_r($date);
@@ -142,46 +129,13 @@ Route::bind('rate', function ($dateTime,  RouteBind $route)  {
 
     //By default return 404
     //http://demo11.local/api/currencies/USD/rates/EUR1
-    /*
-    return App\Currency::where('code', $rate)
-            ->where('date', $date->format('Y-m-d 00:00:00'))->firstOrFail()->rate()->firstOrFail();
-    */
-    //http://demo11.local/api/currencies/USD/rates/EUR
-    //http://demo11.local/api/currencies/USD/rates/EUR,2019-11-23
-    /*
-    $currency = App\Currency::where('code', $rate)->firstOrFail();
-    return  $currency->rates()->where('date', $date->format('Y-m-d 00:00:00'))->first()
-                ?? \App\ExchangeRate::firstOrNew(['name' => 'Flight 10']);
-    */
-    //echo $currencyCode;
-    //echo $date->format('Y-m-d 00:00:00');
-    /*
-    DB::enableQueryLog();
-    App\Currency::where('code', $currencyCode)->firstOrFail()->rates()->where('date', $date->format('Y-m-d 00:00:00'))->firstOrFail();
-
-
-    $users = App\Currency::with(['rates' => function ($query) use ($date) {
-                    $query->where('date', $date->format('Y-m-d 00:00:00'));
-    }])->where('code', $currencyCode)->firstOrFail();
-
-
-    dd(DB::getQueryLog());
-     die();
-     */
-
-    return  App\Currency::where('code', $currencyCode)->firstOrFail()
-                ->rates()->where('date', $date->format('Y-m-d 00:00:00'))->firstOrFail();
+    return App\Currency::where('code', $rate)->firstOrFail()->rate()->firstOrFail();
 });
-/*
-//UGLY IF I NEED TO ADD MORE - need to change ROUTE again
 //JAVA version SPRINT BOOT https://stackoverflow.com/questions/38032635/pass-multiple-parameters-to-rest-api-spring/38032778
 Route::get('api/currencies/{currency}/rates/{rate}/{date?}', [
     'as'       => 'currencies/{currency}/rates/{rate}/{date?}',
     'uses'     => 'Api\Currency\RateController@index',
 ])->defaults('date', \Carbon\Carbon::now()->getTimestamp());
-*/
-
-
 /*
 Route::get('11api/currencies/{currency}/rates/{rate}/{date?}', function ($currency, $rate, $date = '123') {
     //$ctrl = new \App\Http\Controllers\Api\Currency\RateController();

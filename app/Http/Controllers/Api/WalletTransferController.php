@@ -6,6 +6,7 @@ use App\Transaction;
 use App\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Helpers\Currency;
 
 class WalletTransferController extends Controller
 {
@@ -14,12 +15,13 @@ class WalletTransferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //public function index(Wallet $wallet, Transaction $transaction)
-    public function index()
+    public function index(Wallet $wallet)
     {
+        $transactions = Transaction::whereWalletId($wallet->id)->get();
+        return response()->json($transactions);
+
         //print_r($wallet->toArray());
-        //print_r($transaction->toArray());
-        die('2222');
+        //die('2222');
     }
 
     /**
@@ -28,9 +30,47 @@ class WalletTransferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Wallet $wallet)
     {
-        //
+        //Get another wallet
+        $toWallet = Wallet::whereNumber($request->get('to_wallet_number'))->firstOrFail();
+        //print_r($toWallet->toArray());
+
+        //SELECT * FROM demo11_local.exchange_rates;
+        //GET RATES FROM wallet, toWallet Also Rates: latest from today or BEFORE
+
+
+        //Convert amount to another wallet currency
+        //WRITE UTILITY CLASS - convert currency
+        $amount = $request->get('amount');
+        $toWalletCurrencyAmount = Currency::convert($amount, 0.95, 30);
+        print_r($toWalletCurrencyAmount);
+
+        //Validation if currency does not belong to Wallet or not in currency of other Wallet
+        //throw new \Exception('Please use your wallet currency or destination Wallet currency');
+
+        die('333');
+        $transaction = Transaction::create([
+            'wallet_id' => $wallet->id,
+            'to_wallet_id' => $toWallet->id,
+            'type' => 1,
+            'status' => 'created',
+            'currency_id' => $wallet->id, //transfer_currency_amount
+            'amount' => $amount, //transfer_currency_amount
+            //WE CALCULATE CURRENCY RATE On DATE when transaction will be executed, because if it is 10 days after course can be different
+            //IN UPDATE we also add values to COLUMNS BELOW
+            //THIS METHOD WE JUST CREATE TRANSACTION
+            'from_wallet_currency_amount' => $toWalletCurrencyAmount, //if user sends not in his wallet currency we convert here
+            'to_wallet_currency_amount' => $toWalletCurrencyAmount, //if destination in another currency
+            'default_currency_amount' => Currency::convert($amount, 0.95, 1),
+            'executed_at', // date when transaction was executed
+        ]);
+
+        //Save transaction with type + status
+
+        //return transaction_ID back to user, and status
+
+        die('<br />334');
     }
 
     /**
@@ -67,9 +107,9 @@ class WalletTransferController extends Controller
      * @param  \App\Wallet  $wallet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Wallet $wallet)
+    public function update(Request $request, Wallet $wallet, Transaction $transaction)
     {
-        //
+        //we actually will execute HERE TRANSACTION
     }
 
     /**
@@ -80,6 +120,6 @@ class WalletTransferController extends Controller
      */
     public function destroy(Wallet $wallet)
     {
-        //
+        throw new \Exception('Not implemented!');
     }
 }

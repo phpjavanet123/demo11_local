@@ -9,7 +9,7 @@ class ExchangeRate extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'currency_id', 'rate', 'default',
+        'currency_id', 'rate', 'date', 'default',
     ];
 
     /**

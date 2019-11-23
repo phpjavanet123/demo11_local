@@ -102,9 +102,60 @@
 					"response": []
 				},
 				{
-					"name": "http://demo11.local/api/currencies/USD/rates/EUR",
+					"name": "http://demo11.local/api/currencies/EUR/rates/2019-11-24",
 					"request": {
 						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "timestamp",
+									"value": "1574504563",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rate",
+									"value": "0.93",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo11.local/api/currencies/EUR/rates/2019-11-24",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"currencies",
+								"EUR",
+								"rates",
+								"2019-11-24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/currencies/EUR/rates_STORE",
+					"request": {
+						"method": "POST",
 						"header": [
 							{
 								"key": "Accept",
@@ -128,13 +179,13 @@
 								},
 								{
 									"key": "rate",
-									"value": "0.91",
+									"value": "0.93",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://demo11.local/api/currencies/USD/rates/EUR",
+							"raw": "http://demo11.local/api/currencies/EUR/rates",
 							"protocol": "http",
 							"host": [
 								"demo11",
@@ -143,9 +194,272 @@
 							"path": [
 								"api",
 								"currencies",
-								"USD",
+								"EUR",
+								"rates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/currencies/EUR/rates_UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "timestamp",
+									"value": "1574504563",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rate",
+									"value": "0.96",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo11.local/api/currencies/EUR/rates/2019-11-24",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"currencies",
+								"EUR",
 								"rates",
-								"EUR"
+								"2019-11-24"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet",
+			"item": [
+				{
+					"name": "http://demo11.local/api/wallets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "test1@example.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "currency_code",
+									"value": "USD",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "Russia",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "Moscow",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo11.local/api/users",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/wallets/3/transfers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "test1@example.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "currency_code",
+									"value": "USD",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "Russia",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "Moscow",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo11.local/api/wallets/3/transfers",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"wallets",
+								"3",
+								"transfers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/wallets/3/transfers_Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "amount",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "currency_code",
+									"value": "USD",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "to_wallet_number",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "currency_code",
+									"value": "USD",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Russia",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "Moscow",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo11.local/api/wallets/3/transfers",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"wallets",
+								"3",
+								"transfers"
 							]
 						}
 					},
