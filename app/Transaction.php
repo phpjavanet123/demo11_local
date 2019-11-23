@@ -22,6 +22,7 @@ class Transaction extends Model
         'to_wallet_id',
         'type', //Debit/Credit
         'status',
+        'currency_id',
         //'invoice_id', //we dont process for now we are not interder
         //'payment_id', //we dont include as well: VISA, Paxum, Poloniex etc.
         'amount',

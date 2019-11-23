@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Transaction;
 use App\Wallet;
+use App\Currency;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Helpers\Currency;
+use App\Helpers\CurrencyHelper;
 
 class WalletTransferController extends Controller
 {
@@ -34,6 +35,39 @@ class WalletTransferController extends Controller
     {
         //Get another wallet
         $toWallet = Wallet::whereNumber($request->get('to_wallet_number'))->firstOrFail();
+        $transferCurrencyCode = $request->get('currency_code');
+        $currency = Currency::whereCode($transferCurrencyCode)->firstOrFail();
+        $amount = $request->get('amount');
+
+        if (!in_array($currency->id, [$wallet->id, $toWallet->id])) {
+            /*
+             * Validation if currency does not belong to Wallet or not in currency of other Wallet.
+             * It is also safe for execution time of transactino because we not allow to change currency between
+             * creation and execution of transaction
+             */
+            throw new \Exception('Please use your wallet currency or destination Wallet currency');
+        }
+
+        $transaction = Transaction::create([
+            'wallet_id' => $wallet->id,
+            'to_wallet_id' => $toWallet->id,
+            'type' => 1,
+            'status' => 'pending',
+            'currency_id' => $currency->id, //transfer_currency_amount
+            'amount' => $amount, //transfer_currency_amount
+        ]);
+        //We could use automapper here: https://packagist.org/packages/mark-gerarts/auto-mapper-plus
+        //but for test project we will not it, because other goal to show own code
+        return response()->json([
+            'transaction_id' => $transaction->id,
+            'status' => $transaction->status,
+        ]);
+
+
+
+        die('ttttttttt');
+        //Get another wallet
+        $toWallet = Wallet::whereNumber($request->get('to_wallet_number'))->firstOrFail();
         //print_r($toWallet->toArray());
 
         //SELECT * FROM demo11_local.exchange_rates;
@@ -43,11 +77,10 @@ class WalletTransferController extends Controller
         //Convert amount to another wallet currency
         //WRITE UTILITY CLASS - convert currency
         $amount = $request->get('amount');
-        $toWalletCurrencyAmount = Currency::convert($amount, 0.95, 30);
+        $toWalletCurrencyAmount = CurrencyHelper::convert($amount, 0.95, 30);
         print_r($toWalletCurrencyAmount);
 
-        //Validation if currency does not belong to Wallet or not in currency of other Wallet
-        //throw new \Exception('Please use your wallet currency or destination Wallet currency');
+
 
         die('333');
         $transaction = Transaction::create([
@@ -62,7 +95,7 @@ class WalletTransferController extends Controller
             //THIS METHOD WE JUST CREATE TRANSACTION
             'from_wallet_currency_amount' => $toWalletCurrencyAmount, //if user sends not in his wallet currency we convert here
             'to_wallet_currency_amount' => $toWalletCurrencyAmount, //if destination in another currency
-            'default_currency_amount' => Currency::convert($amount, 0.95, 1),
+            'default_currency_amount' => CurrencyHelper::convert($amount, 0.95, 1),
             'executed_at', // date when transaction was executed
         ]);
 
@@ -109,7 +142,25 @@ class WalletTransferController extends Controller
      */
     public function update(Request $request, Wallet $wallet, Transaction $transaction)
     {
+        //check if transaction belong to wallet
+        //check if status == pending (after create ENUM of statuses)
+        if ($transaction->status != 'pending') {
+            //Or we can ignore it, and say only it was exucuted and return date -> all array of transaction
+            //amount took from, putted amount ON, substract from account and add to wallet another account
+            throw new \Exception('Transaction already was executed');
+        }
+
+        //WE PASS "status" => "commit" OR: "status" => "rollback"
+
+
+
         //we actually will execute HERE TRANSACTION
+        //https://stackoverflow.com/questions/147207/transactions-in-rest
+
+        print_r($wallet->toArray());
+        print_r($transaction->toArray());
+        die('33333');
+
     }
 
     /**

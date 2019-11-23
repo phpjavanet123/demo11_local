@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 
-class Currency
+class CurrencyHelper
 {
     /**
      * fromRate, toRate should have the same BASE CURRENCY.
