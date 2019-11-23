@@ -421,8 +421,7 @@
 								{
 									"key": "currency_code",
 									"value": "USD",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "to_wallet_number",
@@ -432,7 +431,8 @@
 								{
 									"key": "currency_code",
 									"value": "USD",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "country",
@@ -460,6 +460,75 @@
 								"wallets",
 								"3",
 								"transfers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://demo11.local/api/wallets/3/transfers_UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "status",
+									"value": "commit",
+									"type": "text"
+								},
+								{
+									"key": "currency_code",
+									"value": "USD",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "to_wallet_number",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "currency_code",
+									"value": "USD",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "Russia",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "Moscow",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo11.local/api/wallets/3/transfers/5",
+							"protocol": "http",
+							"host": [
+								"demo11",
+								"local"
+							],
+							"path": [
+								"api",
+								"wallets",
+								"3",
+								"transfers",
+								"5"
 							]
 						}
 					},
