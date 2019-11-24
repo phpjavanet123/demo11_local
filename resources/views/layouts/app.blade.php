@@ -47,7 +47,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/home">Home</a></li>
                         @if(\Auth::user() && \Auth::user()->role_id == 1)
-                            <li><a href="{{ route('webusers.index') }}">Users</a></li>
+                            <li><a href="{{ route('users.index') }}">Users</a></li>
                         @endif
                         <li><a href="{{ route('transactions.index') }}">Transactions</a></li>
                         <!--li class="dropdown">

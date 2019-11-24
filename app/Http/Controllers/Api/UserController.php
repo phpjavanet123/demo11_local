@@ -20,6 +20,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        die('55666777');
         //http://demo11.local/api/users
         //return response()->json(User::all());
        // $request->set('currency_code', 'USD');

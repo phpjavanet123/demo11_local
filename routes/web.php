@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
     //Route::resource('clients2', 'ClientController');
     //rename webMVC to another name
     //https://stackoverflow.com/questions/25290229/laravel-named-route-for-resource-controller
-    Route::resource('users', 'UserController', ['names' => ['index' => 'webusers.index']])->middleware('administrator');
+    Route::resource('users', 'UserController', ['names' => ['index' => 'users.index']])->middleware('administrator');
     Route::resource('transactions', 'TransactionController');
 });
 
@@ -49,7 +49,12 @@ Route::apiResource('transactions', 'TransactionController');
 
 
 //http://demo11.local/api/users
-Route::apiResource('api/users', 'Api\UserController');
+//https://github.com/laravel/framework/issues/20728
+Route::group(['prefix' => 'api', 'as' => 'api.'], function() {
+    Route::apiResource('users', 'Api\UserController');
+});
+
+//Route::apiResource('api/users', 'Api\UserController');
 
 Route::model('wallet', Wallet::class);
 //Route::model('transaction', Transaction::class);
