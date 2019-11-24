@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Currency;
 use App\Exceptions\InsufficientBalanceException;
+use App\Exceptions\TransferCurrencyException;
 use App\Helpers\CurrencyConvertHelper;
 use App\Transaction;
 use App\Wallet;
@@ -11,6 +13,28 @@ use Illuminate\Support\Facades\DB;
 
 class TransferService
 {
+    public function createTransaction(Wallet $wallet, Wallet $toWallet, $amount, $transferCurrencyCode)
+    {
+        $currency = Currency::whereCode($transferCurrencyCode)->firstOrFail();
+        if (!in_array($currency->id, [$wallet->id, $toWallet->id])) {
+            /*
+             * Validation if currency does not belong to Wallet or not in currency of other Wallet.
+             * It is also safe for execution time of transaction because we not allow to change currency between
+             * creation and execution of transaction
+             */
+            throw new TransferCurrencyException('Please use your wallet currency or destination Wallet currency');
+        }
+
+        return Transaction::create([
+            'wallet_id' => $wallet->id,
+            'to_wallet_id' => $toWallet->id,
+            'type' => 1,
+            'status' => 'pending',
+            'currency_id' => $currency->id, //TODO::: maybe rename to: transfer_currency_amount
+            'amount' => $amount, //TODO::: maybe rename to:  transfer_currency_amount
+        ]);
+    }
+
     public function transfer($transactionId, Carbon $dateTime)
     {
         //pessimistic locking

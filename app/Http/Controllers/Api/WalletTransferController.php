@@ -42,6 +42,23 @@ class WalletTransferController extends Controller
      */
     public function store(Request $request, Wallet $wallet)
     {
+        //TODO::: Add validation for Request to be sure we have all required params
+        $transaction = (new TransferService())->createTransaction(
+            $wallet,
+            Wallet::whereNumber($request->get('to_wallet_number'))->firstOrFail(),
+            $request->get('amount'),
+            $request->get('currency_code')
+        );
+
+        return response()->json([
+            'transaction_id' => $transaction->id,
+            'status' => $transaction->status,
+        ]);
+
+
+
+
+        die('nnnnn');
         //Get another wallet
         $toWallet = Wallet::whereNumber($request->get('to_wallet_number'))->firstOrFail();
         $transferCurrencyCode = $request->get('currency_code');
