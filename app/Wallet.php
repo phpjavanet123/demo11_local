@@ -45,4 +45,8 @@ class Wallet extends Model
         return $this->transactions()->get()->merge($this->transactionsTo()->get());
     }
 
+    public function scopeLocked($query, $id)
+    {
+        return $query->whereId($id)->lockForUpdate();
+    }
 }

@@ -153,7 +153,7 @@ class WalletTransferController extends Controller
     {
         //check if transaction belong to wallet
         //check if status == pending (after create ENUM of statuses)
-        if ($transaction->status != 'pending') {
+        if (0 && $transaction->status != 'pending') {
             //Or we can ignore it, and say only it was exucuted and return date -> all array of transaction
             //amount took from, putted amount ON, substract from account and add to wallet another account
             throw new \Exception('Transaction already was executed');
@@ -161,7 +161,7 @@ class WalletTransferController extends Controller
 
         //print_r($request->all());
         //WE PASS "status" => "execute" OR: "status" => "rollback"
-        if ($request->get('status') == 'execute') {
+        if (1 || $request->get('status') == 'execute') {
             //die('111');
             (new TransferService())->transfer($transaction->id, Carbon::now());
         }

@@ -3,8 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\InsufficientBalanceException;
-use App\ExchangeRate;
-use App\Helpers\CurrencyHelper;
+use App\Helpers\CurrencyConvertHelper;
 use App\Transaction;
 use App\Wallet;
 use Carbon\Carbon;
@@ -17,50 +16,36 @@ class TransferService
         //pessimistic locking
         DB::beginTransaction();
         try {
-            $transaction = Transaction::whereId($transactionId)->lockForUpdate()->firstOrFail();
-
-            //Wallet always exists if transaction exists, but we do extra check as good programming pattern
-            $fromWallet = $this->getWalletById($transaction->wallet_id);
-            $transferCurrencyRate   = $this->getRateByCurrencyId($transaction->currency_id, $dateTime);
-            $fromWalletCurrencyRate = $this->getRateByCurrencyId($fromWallet->currency_id, $dateTime);
-
-            $fromWalletCurrencyAmount = CurrencyHelper::convert(
+            $transaction                = Transaction::whereId($transactionId)->lockForUpdate()->firstOrFail();
+            $fromWallet                 = Wallet::locked($transaction->wallet_id)->firstOrFail();
+            $currencyConvert            = new CurrencyConvertHelper(
                 $transaction->amount,
-                $transferCurrencyRate->rate,
-                $fromWalletCurrencyRate->rate
+                $transaction->currency_id,
+                $dateTime
             );
+            $fromWalletCurrencyAmount   = $currencyConvert->convertToCurrency($fromWallet->currency_id);
 
             if ($fromWalletCurrencyAmount > $fromWallet->amount) {
                 throw new InsufficientBalanceException(' Insufficient Balance');
             }
 
-            $toWallet =  $this->getWalletById($transaction->to_wallet_id);
-            $toWalletCurrencyRate = $this->getRateByCurrencyId($toWallet->currency_id, $dateTime);
-            $toWalletCurrencyAmount = CurrencyHelper::convert(
-                $transaction->amount,
-                $transferCurrencyRate->rate,
-                $toWalletCurrencyRate->rate
-            );
-            $toWallet->amount += $toWalletCurrencyAmount;
-            $toWallet->save();
+            $toWallet               =  Wallet::locked($transaction->to_wallet_id)->firstOrFail();
+            $toWalletCurrencyAmount = $currencyConvert->convertToCurrency($toWallet->currency_id);
 
-            $fromWallet->amount -= $fromWalletCurrencyAmount;
+            $toWallet->amount       += $toWalletCurrencyAmount;
+            $toWallet->save();
+            $fromWallet->amount     -= $fromWalletCurrencyAmount;
             $fromWallet->save();
 
             //UPDATE TRANSACTION
-            //Seems logically we can hardcode rate:1 but we follow flexibility in code - if you change in DB it will work here
-            $toDefaultCurrencyRate = $this->getRateByCurrencyId($toWallet->currency_id, $dateTime, 1);
-            $transferDefaultCurrencyAmount = CurrencyHelper::convert(
-                $transaction->amount,
-                $transferCurrencyRate->rate,
-                $toDefaultCurrencyRate->rate
-            );
+            //Seems logically we can hard-code rate:1 but we follow flexibility in code - if you change in DB it will work here
+            $transferDefaultCurrencyAmount = $currencyConvert->convertToCurrency($toWallet->currency_id, true);
 
-            $transaction->status = 'executed';
-            $transaction->executed_at = $dateTime;
-            $transaction->default_currency_amount = $transferDefaultCurrencyAmount;
-            $transaction->to_wallet_currency_amount = $toWalletCurrencyAmount;
-            $transaction->from_wallet_currency_amount = $fromWalletCurrencyAmount;
+            $transaction->status                        = 'executed';
+            $transaction->executed_at                   = $dateTime;
+            $transaction->default_currency_amount       = $transferDefaultCurrencyAmount;
+            $transaction->to_wallet_currency_amount     = $toWalletCurrencyAmount;
+            $transaction->from_wallet_currency_amount   = $fromWalletCurrencyAmount;
             $transaction->save();
 
             DB::commit();
@@ -68,32 +53,5 @@ class TransferService
             DB::rollBack();
             throw $e;
         }
-    }
-
-    private function getWalletById($id)
-    {
-        return Wallet::whereId($id)
-                    ->lockForUpdate()
-                    ->firstOrFail();
-    }
-
-    /**
-     * Gets the rate for currency. Other transaction can read the value but not allowed to UPDATE
-     *
-     * @param $currencyId
-     * @param Carbon $dateTime
-     * @param bool $isDefault
-     * @return mixed
-     */
-    private function getRateByCurrencyId($currencyId, Carbon $dateTime, $isDefault = false)
-    {
-        return ExchangeRate::whereCurrencyId($currencyId)
-                    ->where('date', '<=', $dateTime->format('Y-m-d 00:00:00'))
-                    ->when($isDefault, function ($query) {
-                        return $query->whereDefault(1);
-                    })
-                    ->orderBy('date', 'DESC')
-                    ->sharedLock()
-                    ->firstOrFail();
     }
 }
