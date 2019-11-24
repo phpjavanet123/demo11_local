@@ -258,6 +258,203 @@
 			"name": "Wallet",
 			"item": [
 				{
+					"name": "Withdraw",
+					"item": [
+						{
+							"name": "http://demo11.local/api/wallets/3/withdraws",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "test1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "test1@example.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "currency_code",
+											"value": "USD",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "country",
+											"value": "Russia",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "city",
+											"value": "Moscow",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://demo11.local/api/wallets/3/withdraws",
+									"protocol": "http",
+									"host": [
+										"demo11",
+										"local"
+									],
+									"path": [
+										"api",
+										"wallets",
+										"3",
+										"withdraws"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://demo11.local/api/wallets/3/withdraws_Store",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "amount",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "currency_code",
+											"value": "USD",
+											"type": "text"
+										},
+										{
+											"key": "to_wallet_number",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "currency_code",
+											"value": "USD",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "country",
+											"value": "Russia",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "city",
+											"value": "Moscow",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://demo11.local/api/wallets/3/withdraws",
+									"protocol": "http",
+									"host": [
+										"demo11",
+										"local"
+									],
+									"path": [
+										"api",
+										"wallets",
+										"3",
+										"withdraws"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://demo11.local/api/wallets/3/withdraws_UPDATE",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "status",
+											"value": "execute",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://demo11.local/api/wallets/3/withdraws/8",
+									"protocol": "http",
+									"host": [
+										"demo11",
+										"local"
+									],
+									"path": [
+										"api",
+										"wallets",
+										"3",
+										"withdraws",
+										"8"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "execute",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "http://demo11.local/api/wallets",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -474,45 +671,21 @@
 								"key": "Accept",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
+							"mode": "urlencoded",
+							"urlencoded": [
 								{
 									"key": "status",
-									"value": "commit",
+									"value": "execute",
 									"type": "text"
-								},
-								{
-									"key": "currency_code",
-									"value": "USD",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "to_wallet_number",
-									"value": "2",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "currency_code",
-									"value": "USD",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "country",
-									"value": "Russia",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "city",
-									"value": "Moscow",
-									"type": "text",
-									"disabled": true
 								}
 							]
 						},
@@ -529,6 +702,13 @@
 								"3",
 								"transfers",
 								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "execute",
+									"disabled": true
+								}
 							]
 						}
 					},
