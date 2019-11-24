@@ -36,6 +36,11 @@
             <td>{{$transaction->executed_at}}</td>
         </tr>
         @endforeach
+        <tr style="font-weight: bold">
+            <td colspan="2" style="text-align: right;">Total:</td>
+            <td>{{$transactionsDefaultSum}}</td>
+            <td>{{$transactionsSum}}</td>
+        </tr>
     </tbody>
   </table>
 <div>

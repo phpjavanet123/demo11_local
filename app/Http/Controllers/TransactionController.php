@@ -27,10 +27,18 @@ class TransactionController extends Controller
         $user = $userID ? User::findOrFail($userID) : Auth::user();
         //$transactions = Auth::user()->wallet()->firstOrFail()->transactionsFromTo(new Carbon('2019-11-24'));
         $transactions = $user->wallet()->firstOrFail()->transactionsFromTo($fromDate, $toDate);
+        $transactionsSum = $transactions->sum('from_wallet_currency_amount');
+        $transactionsDefaultSum = $transactions->sum('default_currency_amount');
+
         //SOT BY ID, and restrict by filter
         //print_r($transactions->toArray());
         $users = User::all();
-        return view('transactions.index', compact('users', 'transactions'));
+        return view('transactions.index', compact(
+            'users',
+            'transactions',
+            'transactionsSum',
+            'transactionsDefaultSum'
+        ));
     }
 
     /**
