@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Services\TransferService;
 use App\Transaction;
 use App\Wallet;
 use App\Currency;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\CurrencyHelper;
@@ -157,8 +159,12 @@ class WalletTransferController extends Controller
             throw new \Exception('Transaction already was executed');
         }
 
-        //WE PASS "status" => "commit" OR: "status" => "rollback"
-
+        //print_r($request->all());
+        //WE PASS "status" => "execute" OR: "status" => "rollback"
+        if ($request->get('status') == 'execute') {
+            //die('111');
+            (new TransferService())->transfer($transaction->id, Carbon::now());
+        }
 
 
         //we actually will execute HERE TRANSACTION

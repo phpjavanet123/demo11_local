@@ -34,6 +34,15 @@ class Transaction extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'executed_at' => 'datetime',
+    ];
+
+    /**
      * Get the wallet that owns the transaction.
      */
     public function wallet()
