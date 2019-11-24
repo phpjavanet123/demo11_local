@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\DB;
 
 class TransferService
 {
-    public function createTransaction(Wallet $wallet, Wallet $toWallet, $amount, $transferCurrencyCode)
+    public function createTransaction(Wallet $wallet, Wallet $toWallet, $amount, $transferCurrencyCode, $checkCurrency = true)
     {
         $currency = Currency::whereCode($transferCurrencyCode)->firstOrFail();
-        if (!in_array($currency->id, [$wallet->id, $toWallet->id])) {
+        if ($checkCurrency && !in_array($currency->id, [$wallet->id, $toWallet->id])) {
             /*
              * Validation if currency does not belong to Wallet or not in currency of other Wallet.
              * It is also safe for execution time of transaction because we not allow to change currency between
@@ -37,6 +37,10 @@ class TransferService
 
     public function transfer($transactionId, Carbon $dateTime)
     {
+        /**
+         * Seems it has advantage like Handling Deadlocks: up to 5. But in this example we will use traditional way
+         * DB::transaction(function() { }, 5);
+         */
         //pessimistic locking
         DB::beginTransaction();
         try {
@@ -73,6 +77,8 @@ class TransferService
             $transaction->save();
 
             DB::commit();
+
+            return $transaction;
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

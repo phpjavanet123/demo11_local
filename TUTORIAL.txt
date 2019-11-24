@@ -103,6 +103,8 @@ INSERT INTO `demo11_local`.`wallets` (`id`, `user_id`, `currency_id`, `number`, 
 
 php artisan make:controller Api/\CurrencyController --api --model=Currency
 php artisan make:controller Api/\Currency/\RateController --api --model=ExchangeRate
+php artisan make:controller Api/\Wallet/\WithdrawController --api --model=Transaction
+php artisan make:controller Api/\Wallet/\DepositController --api --model=Transaction
 
 
 ALTER TABLE `demo11_local`.`transactions`

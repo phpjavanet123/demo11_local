@@ -215,3 +215,6 @@ Route::get('/api/currencies/rates', function ($code = 'USD') {
 
 Route::apiResource('api/currencies', 'Api\CurrencyController');
 */
+
+Route::apiResource('api/wallets.withdraws', 'Api\Wallet\WithdrawController');
+Route::apiResource('api/wallets.deposits', 'Api\Wallet\DepositController');
