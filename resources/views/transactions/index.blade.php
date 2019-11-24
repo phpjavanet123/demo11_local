@@ -1,19 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-  .uper {
-    margin-top: 40px;
-  }
-</style>
 <div class="uper">
-  @if(session()->get('success'))
-    <div class="alert alert-success">
-      {{ session()->get('success') }}
-    </div><br />
-  @endif
   @include('transactions._search')
-  <div class="card-header">Transactions</div>
+      <div class="card-header">Transactions
+          <div class="export-to-files">
+              <a href="{{$exportFileUrl->xmlUrl}}"><img title="Export to XML" src="/images/xml.png" /></a>
+              <a href="{{$exportFileUrl->csvUrl}}"><img title="Export to CSV" src="/images/csv.png" /></a>
+          </div>
+      </div>
   <table class="table table-striped thead-dark">
     <thead>
         <tr>

@@ -111,3 +111,7 @@ ALTER TABLE `demo11_local`.`transactions`
 ADD COLUMN `from_wallet_currency_amount` DOUBLE(16,4) UNSIGNED NOT NULL DEFAULT 0 AFTER `updated_at`,
 ADD COLUMN `to_wallet_currency_amount` VARCHAR(45) NULL AFTER `from_wallet_currency_amount`,
 ADD COLUMN `executed_at` TIMESTAMP NULL DEFAULT NULL AFTER `to_wallet_currency_amount`;
+
+
+https://packagist.org/packages/usmanhalalit/laracsv
+composer require usmanhalalit/laracsv:^2.0

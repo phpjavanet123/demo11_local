@@ -22,3 +22,16 @@ a.add-item {
     background-color: #e7e7e7;
     border-color: #454d55;
 }
+
+.export-to-files {
+    display: inline-block;
+}
+
+.export-to-files a {
+    width:25px;
+    height:25px;
+    display:inline-block;
+}
+.export-to-files a img {
+    width: 100%;
+}

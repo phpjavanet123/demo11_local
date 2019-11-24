@@ -6,6 +6,8 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use League\Csv\Writer;
+use League\Csv\XMLConverter;
 
 class TransactionController extends Controller
 {
@@ -16,6 +18,55 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
+        /*
+        $transactions = Auth::user()->wallet()->firstOrFail()->transactionsFromTo();
+        $csvExporter = new \Laracsv\Export();
+        $csvExporter->build($transactions, ['id', 'default_currency_amount', 'updated_at']);
+        $csvExporter->download();
+        exit;
+        //https://packagist.org/packages/usmanhalalit/laracsv
+        //https://csv.thephpleague.com/
+        $users = User::get(); // All users
+        $csvExporter = new \Laracsv\Export();
+        //$csvExporter->build($users, ['email', 'name'])->download();
+        $csvExporter->build($users, ['email', 'name']);
+        $csvWriter = $csvExporter->getWriter();
+        $csvRow = [
+            'title' => ['Total', 'Total Default'],
+            'data' => ['300', '200'],
+        ];
+        $csvWriter->insertOne($csvRow['title']);
+        $csvWriter->insertOne($csvRow['data']);
+        //$csvExporter->download();
+
+        $converter = (new XMLConverter())
+            ->rootElement('csv')
+            ->recordElement('record', 'offset')
+            ->fieldElement('field', 'name');
+
+        $dom = $converter->convert($csvExporter->getReader()->getIterator());
+        $dom->formatOutput = true;
+        $dom->encoding = 'iso-8859-15';
+
+        $filename = date('Y-m-d_His') . '.xml';
+        //$this->writer->output($filename);
+        //$csvExporter->getWriter()->output($filename);
+
+        $csv = Writer::createFromString($dom->saveXML());
+        $csv->output($filename);
+        //echo '<pre>', PHP_EOL;
+        //echo htmlentities($dom->saveXML());
+
+        exit;
+        */
+        $parameters = $request->all();
+        $parameters['export'] = 'csv';
+        $exportFileUrl = new \StdClass();
+        $exportFileUrl->csvUrl = route('transactions.index', $parameters);
+
+        $parameters['export'] = 'xml';
+        $exportFileUrl->xmlUrl = route('transactions.index', $parameters);
+
         //echo '<pre>';
         //$id = Auth::user()->id;
         $fromDate = $request->get('date_from', null);
@@ -37,7 +88,8 @@ class TransactionController extends Controller
             'users',
             'transactions',
             'transactionsSum',
-            'transactionsDefaultSum'
+            'transactionsDefaultSum',
+            'exportFileUrl'
         ));
     }
 
