@@ -40,6 +40,8 @@
             <td colspan="2" style="text-align: right;">Total:</td>
             <td>{{$transactionsDefaultSum}}</td>
             <td>{{$transactionsSum}}</td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
   </table>
