@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
@@ -48,5 +49,15 @@ class Transaction extends Model
     public function wallet()
     {
         return $this->belongsTo(Wallet::class);
+    }
+
+    public function scopeFromExecuted($query, Carbon $dateTime)
+    {
+        return $query->where('executed_at', '>=', $dateTime->format('Y-m-d 00:00:00'));
+    }
+
+    public function scopeToExecuted($query, Carbon $dateTime)
+    {
+        return $query->where('executed_at', '<=', $dateTime->format('Y-m-d 00:00:00'));
     }
 }

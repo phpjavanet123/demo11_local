@@ -27,8 +27,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::resource('clients2', 'ClientController');
-    Route::resource('users', 'UserController')->middleware('administrator');
+    //Route::resource('clients2', 'ClientController');
+    //rename webMVC to another name
+    //https://stackoverflow.com/questions/25290229/laravel-named-route-for-resource-controller
+    Route::resource('users', 'UserController', ['names' => ['index' => 'webusers.index']])->middleware('administrator');
+    Route::resource('transactions', 'TransactionController');
 });
 
 //https://www.reddit.com/r/laravel/comments/bx92cc/difference_between_routeapiresource_and/

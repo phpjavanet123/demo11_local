@@ -6,3 +6,19 @@
 a.add-item {
     margin: 1rem 0;
 }
+
+.search-form {
+    padding: 2rem;
+    margin-bottom:2rem;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    border-radius: 1rem;
+}
+.card-header {
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
+.thead-dark thead tr td {
+    background-color: #e7e7e7;
+    border-color: #454d55;
+}

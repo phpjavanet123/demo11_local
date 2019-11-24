@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Wallet extends Model
@@ -40,13 +41,26 @@ class Wallet extends Model
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function transactionsFromTo()
+    public function transactionsFromTo(Carbon $dateTimeFrom = null, Carbon $dateTimeTo = null)
     {
-        return $this->transactions()->get()->merge($this->transactionsTo()->get());
+        $fromWallet = $this->appendExecutedAtWhere($this->transactions(), $dateTimeFrom, $dateTimeTo)->get();
+        $toWallet   = $this->appendExecutedAtWhere($this->transactionsTo(), $dateTimeFrom, $dateTimeTo)->get();
+
+        return $fromWallet->merge($toWallet)->sortByDesc('executed_at');
     }
 
     public function scopeLocked($query, $id)
     {
         return $query->whereId($id)->lockForUpdate();
+    }
+
+    private function appendExecutedAtWhere($query, $dateTimeFrom, $dateTimeTo)
+    {
+        return $query->when($dateTimeFrom, function ($query) use ($dateTimeFrom) {
+            return $query->fromExecuted($dateTimeFrom);
+        })
+        ->when($dateTimeTo, function ($query) use ($dateTimeTo) {
+            return $query->toExecuted($dateTimeTo);
+        });
     }
 }

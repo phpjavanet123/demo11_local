@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -11,9 +14,23 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //echo '<pre>';
+        //$id = Auth::user()->id;
+        $fromDate = $request->get('date_from', null);
+        $toDate = $request->get('to_from', null);
+        $fromDate = $fromDate ? new Carbon($fromDate) : null;
+        $toDate = $toDate ? new Carbon($toDate) : null;
+
+        $userID = $request->get('user_id', null);
+        $user = $userID ? User::findOrFail($userID) : Auth::user();
+        //$transactions = Auth::user()->wallet()->firstOrFail()->transactionsFromTo(new Carbon('2019-11-24'));
+        $transactions = $user->wallet()->firstOrFail()->transactionsFromTo($fromDate, $toDate);
+        //SOT BY ID, and restrict by filter
+        //print_r($transactions->toArray());
+        $users = User::all();
+        return view('transactions.index', compact('users', 'transactions'));
     }
 
     /**
